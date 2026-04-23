@@ -1,6 +1,7 @@
 import { mutationGeneric, queryGeneric } from "convex/server";
 import { v } from "convex/values";
 
+
 const query = queryGeneric;
 const mutation = mutationGeneric;
 

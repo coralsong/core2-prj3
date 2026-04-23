@@ -1,10 +1,10 @@
-import { useMemo, useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from "react-leaflet";
+import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
-import "./index.css";
-import "./leafletIcons";
 import { api } from "./convexApi";
-import { DEFAULT_CENTER, MAP_BOUNDS } from "./constants";
+import Header from "./components/Header";
+import EggMap from "./components/EggMap";
+import SubmissionForm from "./components/SubmissionForm";
+import "./index.css";
 
 const DEFAULT_FORM = {
   eggType: "brown",
@@ -15,18 +15,6 @@ const DEFAULT_FORM = {
 function AppShell({ pins, onCreatePin }) {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [clickedLatLng, setClickedLatLng] = useState(null);
-
-  const markerPins = useMemo(
-    () =>
-      pins.map((pin) => ({
-        id: pin._id,
-        latitude: pin.latitude,
-        longitude: pin.longitude,
-        price: pin.price,
-        storeName: pin.storeName,
-      })),
-    [pins],
-  );
 
   async function handleSubmit() {
     const storeName = form.storeName.trim();
@@ -61,107 +49,23 @@ function AppShell({ pins, onCreatePin }) {
 
   return (
     <>
-      <div className="header">
-        <h1>
-          <a href="../EGGxpert">EGGxpert</a>
-        </h1>
-        <nav>
-          <span>Brown Eggs</span>
-          <span>White Eggs</span>
-          <span>Quail Eggs</span>
-          <span>Ostrich Eggs</span>
-          <span>Vegetarian Eggs</span>
-        </nav>
-      </div>
+      <Header />
 
       <div className="map">
         <div id="map">
-          <EggMap pins={markerPins} onMapClick={setClickedLatLng} />
+          <EggMap pins={pins} onMapClick={setClickedLatLng} />
         </div>
       </div>
 
-      <div className={`submissionForm${clickedLatLng ? " active" : ""}`} id="submissionForm">
-        <h3>Add</h3>
-        <input
-          id="storeName"
-          type="text"
-          placeholder="Store name (e.g. Trader Joes)"
-          value={form.storeName}
-          onChange={(event) =>
-            setForm((current) => ({ ...current, storeName: event.target.value }))
-          }
-        />
-        <input
-          id="eggPrice"
-          type="number"
-          placeholder="Price ($)"
-          step="0.01"
-          value={form.price}
-          onChange={(event) => setForm((current) => ({ ...current, price: event.target.value }))}
-        />
-        <button id="submitButton" type="button" onClick={handleSubmit}>
-          Add Pin
-        </button>
-        <button id="cancelButton" type="button" onClick={handleCancel}>
-          Cancel
-        </button>
-        <select
-          id="eggType"
-          value={form.eggType}
-          onChange={(event) => setForm((current) => ({ ...current, eggType: event.target.value }))}
-        >
-          <option value="brown">Brown Eggs</option>
-          <option value="white">White Eggs</option>
-          <option value="quail">Quail Eggs</option>
-          <option value="ostrich">Ostrich Eggs</option>
-          <option value="vegetarian">Vegetarian Eggs</option>
-        </select>
-      </div>
+      <SubmissionForm
+        clickedLatLng={clickedLatLng}
+        form={form}
+        onCancel={handleCancel}
+        onChange={setForm}
+        onSubmit={handleSubmit}
+      />
     </>
   );
-}
-
-function EggMap({ pins, onMapClick }) {
-  return (
-    <MapContainer
-      center={DEFAULT_CENTER}
-      zoom={15}
-      minZoom={13.5}
-      maxZoom={19}
-      maxBounds={MAP_BOUNDS}
-      maxBoundsViscosity={1}
-      scrollWheelZoom
-      className="leaflet-map"
-    >
-      <TileLayer
-        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <MapClickCapture onMapClick={onMapClick} />
-
-      {pins.map((pin) => (
-        <Marker key={pin.id} position={[pin.latitude, pin.longitude]}>
-          <Popup>
-            <div>
-              <b>{pin.storeName}</b>
-              <br />
-              Eggs: ${pin.price.toFixed(2)} per dozen
-            </div>
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
-  );
-}
-
-function MapClickCapture({ onMapClick }) {
-  useMapEvents({
-    click(event) {
-      onMapClick(event.latlng);
-    },
-  });
-
-  return null;
 }
 
 function ConvexApp() {

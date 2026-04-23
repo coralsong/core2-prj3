@@ -1,51 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Track egg prices around the city with a live React + Convex map."
+  />
+  <title>EGGxpert</title>
 </head>
-
 <body>
-
-    <div class="header">
-           <h1><a href="../EGGxpert">EGGxpert</a></h1>
-        <nav>
-        <span>Brown Eggs</a></span>
-        <span>White Eggs</a></span>
-        <span>Quail Eggs</a></span>
-        <span>Ostrich Eggs</a></span>
-        <span>Vegetarian Eggs</a></span>
-        </nav>
-    </div>
-
-    <div class="map">
-        <div id="map"></div>
-    </div>
-
-    <div class="submissionForm" id="submissionForm">
-        <h3>Add</h3>
-        <input type="text" id="storeName" placeholder="Store name (e.g. Trader Joes)">
-        <input type="number" id="eggPrice" placeholder="Price ($)" step="0.01">
-        <button id="submitButton">Add Pin</button>
-        <button id="cancelButton">Cancel</button>
-        <select id="eggType">
-             <option value="brown">Brown Eggs</option>
-              <option value="white">White Eggs</option>
-               <option value="quail">Quail Eggs</option>
-               <option value="ostrich">Ostrich Eggs</option>
-              <option value="vegetarian">Vegetarian Eggs</option>
-</select>
-    </div>
-
-
-    <script src="script.js"></script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
-
 </html>

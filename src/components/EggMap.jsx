@@ -3,7 +3,7 @@ import "../leafletIcons";
 import { DEFAULT_CENTER, MAP_BOUNDS } from "../constants";
 
 import L from "leaflet";
-import myPin from "../assets/egg.png";
+import myPin from "../../assets/egg.png";
 
 function MapClickCapture({ onMapClick }) {
   useMapEvents({

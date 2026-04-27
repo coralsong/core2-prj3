@@ -15,6 +15,13 @@ function MapClickCapture({ onMapClick }) {
   return null;
 }
 
+const customIcon = L.icon({
+  iconUrl: myPin,
+  iconSize: [38, 38],
+  iconAnchor: [19, 38],
+  popupAnchor: [0, -38],
+});
+
 export default function EggMap({ pins, onMapClick, clickedPosition }) {
   return (
     <MapContainer
@@ -32,14 +39,6 @@ export default function EggMap({ pins, onMapClick, clickedPosition }) {
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <MapClickCapture onMapClick={onMapClick} />
-
-const customIcon = L.icon({
-  iconUrl: myPin,
-  iconSize: [38, 38],
-  iconAnchor: [19, 38],
-  popupAnchor: [0, -38],
-});
-
 
 {/* added temp pins for better comp */}
       {clickedPosition && (

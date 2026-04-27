@@ -30,12 +30,14 @@ export default function EggMap({ pins, onMapClick }) {
       />
       <MapClickCapture onMapClick={onMapClick} />
 
-{/* added temp pins for better comp
+
+
+{/* added temp pins for better comp */}
       {clickedPosition && (
         <Marker position={[clickedPosition.lat, clickedPosition.lng]}>
           <Popup>Drop your pin here</Popup>
         </Marker>
-      )} */}
+      )}
 
       {pins.map((pin) => (
         <Marker key={pin._id} position={[pin.latitude, pin.longitude]}>

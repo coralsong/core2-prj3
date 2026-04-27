@@ -53,7 +53,7 @@ function AppShell({ pins, onCreatePin }) {
 
       <div className="map">
         <div id="map">
-          <EggMap pins={pins} onMapClick={setClickedLatLng} />
+          <EggMap pins={pins} onMapClick={setClickedLatLng} clickedPosition={clickedLatLng} />
         </div>
       </div>
 

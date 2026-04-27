@@ -12,7 +12,7 @@ function MapClickCapture({ onMapClick }) {
   return null;
 }
 
-export default function EggMap({ pins, onMapClick }) {
+export default function EggMap({ pins, onMapClick, clickedPosition }) {
   return (
     <MapContainer
       center={DEFAULT_CENTER}

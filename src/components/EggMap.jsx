@@ -42,7 +42,7 @@ export default function EggMap({ pins, onMapClick, clickedPosition }) {
 
 {/* added temp pins for better comp */}
       {clickedPosition && (
-        <Marker position={[clickedPosition.lat, clickedPosition.lng]}>
+        <Marker position={[clickedPosition.lat, clickedPosition.lng]} icon={customIcon}>
           <Popup>Drop your pin here</Popup>
         </Marker>
       )}

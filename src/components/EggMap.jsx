@@ -2,6 +2,9 @@ import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from "react-leaf
 import "../leafletIcons";
 import { DEFAULT_CENTER, MAP_BOUNDS } from "../constants";
 
+import L from "leaflet";
+import myPin from "../assets/egg.png";
+
 function MapClickCapture({ onMapClick }) {
   useMapEvents({
     click(event) {
@@ -30,6 +33,12 @@ export default function EggMap({ pins, onMapClick, clickedPosition }) {
       />
       <MapClickCapture onMapClick={onMapClick} />
 
+const customIcon = L.icon({
+  iconUrl: myPin,
+  iconSize: [38, 38],
+  iconAnchor: [19, 38],
+  popupAnchor: [0, -38],
+});
 
 
 {/* added temp pins for better comp */}
@@ -40,7 +49,7 @@ export default function EggMap({ pins, onMapClick, clickedPosition }) {
       )}
 
       {pins.map((pin) => (
-        <Marker key={pin._id} position={[pin.latitude, pin.longitude]}>
+        <Marker key={pin._id} position={[pin.latitude, pin.longitude]} icon={customIcon}>
           <Popup>
             <div>
               <b>{pin.storeName}</b>

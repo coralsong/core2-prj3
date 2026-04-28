@@ -32,7 +32,7 @@ body {
 .leaflet-map .leaflet-control-zoom-in,
 .leaflet-map .leaflet-control-zoom-out,
 .leaflet-map .leaflet-control-attribution {
-  /* filter: invert(100%) hue-rotate(190deg) brightness(95%) contrast(90%); */
+  filter: invert(100%) hue-rotate(190deg) brightness(95%) contrast(90%);
 }
 
 .leaflet-map .leaflet-marker-pane,

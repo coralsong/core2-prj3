@@ -13,15 +13,49 @@ body {
   font-family: sans-serif;
 }
 
-#map {
-  width: 80vw;
-  height: 75vh;
-  position: relative;
-  border: 2px solid black;
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: #111;
+/* parent container of filter and map */
+.main {
+  display: flex;
+  gap: 16px;
 }
+
+/* filter inside .main */
+#filter {
+  width: 330px;
+  margin-left: 20px;
+  left: 40px;
+}
+
+    /* each filter button inside #filter */
+    .filter-btn {
+      flex-direction: row;
+      color: black;
+      padding: 5px;
+      margin: 3px;
+    }
+
+/* div #map container */
+.map {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: flex-start;
+  height: calc(100vh - 80px);
+  margin: 0;
+  right: 0px;
+}
+
+    /* map inside .map */
+    #map {
+      width: 70vw;
+      height: 75vh;
+      position: relative;
+      border: 2px solid black;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #111;
+      right: 30px;
+    }
 
 .leaflet-map {
   width: 100%;
@@ -46,17 +80,21 @@ body {
   font-size: 14px;
 }
 
+.store-link {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .leaflet-control-zoom {
   background-color: #111;
 }
 
-.map {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: calc(100vh - 80px);
-  margin: 0;
-}
+
 
 .header {
   display: flex;
@@ -117,15 +155,14 @@ transition: transform 0.5s ease-out;
 }
 
 .egg {
-  width: 446px;
-  height: 507px;
-  background-color: #fceabb;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  width: 100%;
+  height: 100%;
+  background-color: white;
   position: relative;
   cursor: pointer;
   overflow: hidden;
-  transform: scale(0.3);
-  transition: transform 0.5s ease-out;
+  /* transform: scale(0.3); */
+  /* transition: transform 0.5s ease-out; */
 } 
 
 .egg-content {
@@ -141,11 +178,11 @@ transition: transform 0.5s ease-out;
   padding: 16px;
   gap: 8px;
 
-   opacity: 0;
-  transition: opacity 0.3s ease-out 0.3s;
+   /* opacity: 0; */
+  /* transition: opacity 0.3s ease-out 0.3s; */
 }
 
-.egg.expanded {
+/* .egg.expanded {
   transform: scale(1);
 }
 
@@ -156,11 +193,11 @@ transition: transform 0.5s ease-out;
 .submissionForm.expanded {
 transform: scale(1);
 
-}
+} */
 
-.submissionForm.expanded .egg {
+/* .submissionForm.expanded .egg {
   opacity: 1;
-}
+} */
 
 .submissionForm h3 {
   margin: 0;
@@ -178,6 +215,18 @@ transform: scale(1);
 
    opacity: 0;
   transition: opacity 0.3s ease-out 0.3s;
+}
+
+.store-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 70%;
+  text-align: center;
+}
+
+.store-details p {
+  margin: 0;
 }
 
 .submissionForm button {

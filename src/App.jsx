@@ -15,6 +15,7 @@ const DEFAULT_FORM = {
 function AppShell({ pins, onCreatePin }) {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [clickedLatLng, setClickedLatLng] = useState(null);
+  const [selectedPin, setSelectedPin] = useState(null);
 
   async function handleSubmit() {
     const storeName = form.storeName.trim();
@@ -45,16 +46,45 @@ function AppShell({ pins, onCreatePin }) {
   function handleCancel() {
     setForm(DEFAULT_FORM);
     setClickedLatLng(null);
+    setSelectedPin(null);
+  }
+
+  function handleMapClick(latlng) {
+    setClickedLatLng(latlng);
+    setSelectedPin(null);
+  }
+
+  function handlePinSelect(pin) {
+    setSelectedPin(pin);
+    setClickedLatLng(null);
   }
 
   return (
     <>
       <Header />
 
+        <div className="main">
+        <div id="filter">
+        <button className="filter-btn active" onClick={() => filterSelection('all')}>Show all</button>
+        <button className="filter-btn" onClick={() => filterSelection('brown')}>Brown Eggs</button>
+        <button className="filter-btn" onClick={() => filterSelection('white')}>White Eggs</button>
+        <button className="filter-btn" onClick={() => filterSelection('quail')}>Quail Eggs </button>
+        <button className="filter-btn" onClick={() => filterSelection('ostrich')}>Ostrich Eggs</button>
+        <button className="filter-btn" onClick={() => filterSelection('plant-based')}>Plant-Based Eggs</button>
+      </div>
+
       <div className="map">
         <div id="map">
-          <EggMap pins={pins} onMapClick={setClickedLatLng} clickedPosition={clickedLatLng} />
+          <EggMap
+            pins={pins}
+            onMapClick={handleMapClick}
+            clickedPosition={clickedLatLng}
+            onPinSelect={handlePinSelect}
+          />
         </div>
+      </div>
+
+      <div className="storeName"></div>
       </div>
 
       <SubmissionForm
@@ -63,6 +93,7 @@ function AppShell({ pins, onCreatePin }) {
         onCancel={handleCancel}
         onChange={setForm}
         onSubmit={handleSubmit}
+        selectedPin={selectedPin}
       />
     </>
   );

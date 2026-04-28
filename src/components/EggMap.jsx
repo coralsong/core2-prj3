@@ -22,7 +22,7 @@ const customIcon = L.icon({
   popupAnchor: [0, -38],
 });
 
-export default function EggMap({ pins, onMapClick, clickedPosition }) {
+export default function EggMap({ pins, onMapClick, clickedPosition, onPinSelect }) {
   return (
     <MapContainer
       center={DEFAULT_CENTER}
@@ -51,9 +51,13 @@ export default function EggMap({ pins, onMapClick, clickedPosition }) {
         <Marker key={pin._id} position={[pin.latitude, pin.longitude]} icon={customIcon}>
           <Popup>
             <div>
-              <b>{pin.storeName}</b>
-              <br />
-              Eggs: ${pin.price.toFixed(2)} per dozen
+              <button
+                type="button"
+                className="store-link"
+                onClick={() => onPinSelect(pin)}
+              >
+                <b>{pin.storeName}</b>
+              </button>
             </div>
           </Popup>
         </Marker>

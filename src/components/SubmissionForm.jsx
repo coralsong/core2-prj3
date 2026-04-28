@@ -20,22 +20,15 @@ export default function SubmissionForm({
         <div className="egg-content">
           {selectedPin ? (
             <>
-              <h3>Store details</h3>
+              <p>Store details</p>
               
-              <button
-                id="cancelButton"
-                type="button"
-                onClick={() => {
+              <button id="cancelButton" type="button" onClick={() => {
                   setExpanded(false);
-                  onCancel();
-                }}
-              >
-                Close
-              </button>
+                  onCancel();}}>Close </button>
             </>
           ) : (
             <>
-              <h3>Add a pin</h3>
+              <p>Add a pin</p>
               <input
                 id="storeName"
                 type="text"
@@ -46,21 +39,13 @@ export default function SubmissionForm({
                 }
               />
 
-              <input
-                id="eggPrice"
-                type="number"
-                placeholder="Price ($)"
-                step="0.01"
-                value={form.price}
-                onChange={(event) =>
+              <input id="eggPrice" type="number" placeholder="Price ($)" step="0.01"
+                value={form.price} onChange={(event) =>
                   onChange((current) => ({ ...current, price: event.target.value }))
                 }
               />
 
-              <select
-                id="eggType"
-                value={form.eggType}
-                onChange={(event) =>
+              <select id="eggType" value={form.eggType} onChange={(event) =>
                   onChange((current) => ({ ...current, eggType: event.target.value }))
                 }
               >

@@ -24,6 +24,13 @@ body {
   margin-left: 40px;
 }
 
+/* title link */
+.title a {
+  color: black;
+  text-decoration: none;
+  font-size: 40px;
+}
+
 /* parent container of filter and map */
 .main {
   display: flex;
@@ -149,12 +156,6 @@ margin: 5px;
 
 .leaflet-control-zoom {
   background-color: #111;
-}
-
-
-a {
-  color: black;
-  text-decoration: none;
 }
 
 /* egg shaped form parent div */

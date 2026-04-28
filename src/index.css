@@ -8,14 +8,14 @@ body,
 }
 
 body {
-  background-color: white;
+  background-color: #F0EAD6;
   color: black;
   font-family: sans-serif;
 }
 
 #map {
   width: 80vw;
-  height: 70vh;
+  height: 75vh;
   position: relative;
   border: 2px solid black;
   border-radius: 10px;
@@ -32,7 +32,7 @@ body {
 .leaflet-map .leaflet-control-zoom-in,
 .leaflet-map .leaflet-control-zoom-out,
 .leaflet-map .leaflet-control-attribution {
-  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+  filter: invert(100%) hue-rotate(190deg) brightness(95%) contrast(90%);
 }
 
 .leaflet-map .leaflet-marker-pane,
@@ -53,7 +53,7 @@ body {
 .map {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   height: calc(100vh - 80px);
   margin: 0;
 }
@@ -63,13 +63,13 @@ body {
   justify-content: space-between;
   align-items: baseline;
   position: relative;
-  background-color: white;
+  background-color: #F0EAD6;
   margin: 20px;
   margin-left: 50px;
 }
 
 nav {
-  background-color: white;
+  background-color: #F0EAD6;
   padding: 5px;
   margin-right: 350px;
   display: flex;
@@ -101,6 +101,11 @@ a {
   opacity: 1;
   pointer-events: none;
   transition: opacity 0.2s ease-out;
+  
+width: 146px;
+height: 207px; /* 146 × 1.42 */
+background-color: #fceabb;
+border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
 }
 
 .submissionForm.active {
@@ -110,7 +115,8 @@ a {
 
 .submissionForm h3 {
   margin: 0;
-  font-size: 16px;
+  font-size: 14px;
+  text-align: center;
 }
 
 .submissionForm input,
@@ -118,8 +124,10 @@ a {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 14px;
-  width: 100%;
+  font-size: 12px;
+  width: 75%;
+  display: flex;
+  justify-content: center;
 }
 
 .submissionForm button {
@@ -127,7 +135,10 @@ a {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
+  width: 87%;
+    display: flex;
+  align-items: center;
 }
 
 #submitButton {

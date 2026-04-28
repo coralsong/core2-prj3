@@ -20,13 +20,25 @@ body {
   border: 2px solid black;
   border-radius: 10px;
   overflow: hidden;
+  background-color: #111;
 }
 
 .leaflet-map {
   width: 100%;
   height: 100%;
-  /* filter: brightness(1); */
+}
 
+.leaflet-map .leaflet-tile-pane,
+.leaflet-map .leaflet-control-zoom-in,
+.leaflet-map .leaflet-control-zoom-out,
+.leaflet-map .leaflet-control-attribution {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+.leaflet-map .leaflet-marker-pane,
+.leaflet-map .leaflet-shadow-pane,
+.leaflet-map .leaflet-popup-pane {
+  filter: none;
 }
 
 .leaflet-popup-content {
@@ -35,7 +47,7 @@ body {
 }
 
 .leaflet-control-zoom {
-  background-color: white;
+  background-color: #111;
 }
 
 .map {

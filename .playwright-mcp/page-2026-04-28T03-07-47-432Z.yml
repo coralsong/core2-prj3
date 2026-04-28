@@ -1,0 +1,36 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - heading "EGGxpert" [level=1] [ref=e4]:
+      - link "EGGxpert" [ref=e5] [cursor=pointer]:
+        - /url: ../EGGxpert
+    - navigation [ref=e6]:
+      - generic [ref=e7]: Brown Eggs
+      - generic [ref=e8]: White Eggs
+      - generic [ref=e9]: Quail Eggs
+      - generic [ref=e10]: Ostrich Eggs
+      - generic [ref=e11]: Vegetarian Eggs
+  - generic [ref=e14]:
+    - generic:
+      - generic [ref=e15]:
+        - button "Zoom in" [ref=e16] [cursor=pointer]: +
+        - button "Zoom out" [ref=e17] [cursor=pointer]: −
+      - generic [ref=e18]:
+        - link "Leaflet" [ref=e19] [cursor=pointer]:
+          - /url: https://leafletjs.com
+          - img [ref=e20]
+          - text: Leaflet
+        - text: "| ©"
+        - link "OpenStreetMap" [ref=e24] [cursor=pointer]:
+          - /url: http://www.openstreetmap.org/copyright
+  - generic:
+    - heading "Add" [level=3]
+    - textbox "Store name (e.g. Trader Joes)"
+    - spinbutton
+    - button "Add Pin"
+    - button "Cancel"
+    - combobox:
+      - option "Brown Eggs" [selected]
+      - option "White Eggs"
+      - option "Quail Eggs"
+      - option "Ostrich Eggs"
+      - option "Vegetarian Eggs"

@@ -35,14 +35,12 @@ export default function EggMap({ pins, onMapClick, clickedPosition }) {
       className="leaflet-map"
     >
       <TileLayer
-        // attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        // url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-         attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png"
+        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <MapClickCapture onMapClick={onMapClick} />
 
-{/* added temp pins for better comp */}
+      {/* added temp pins for better comp */}
       {clickedPosition && (
         <Marker position={[clickedPosition.lat, clickedPosition.lng]} icon={customIcon}>
           <Popup>Drop your pin here</Popup>

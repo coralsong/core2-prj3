@@ -19,9 +19,16 @@ body {
   gap: 16px;
 }
 
+/* container for filter and storeName */
+.main-left {
+  display: flex;
+  gap: 16px;
+  flex-direction: column; 
+}
+
 /* filter inside .main */
 #filter {
-  width: 330px;
+  width: 320px;
   margin-left: 20px;
   left: 40px;
 }
@@ -33,6 +40,13 @@ body {
       padding: 5px;
       margin: 3px;
     }
+
+.storeName {
+display: flex;
+width: 320px;
+margin-left: 20px;
+left: 40px;
+}
 
 /* div #map container */
 .map {

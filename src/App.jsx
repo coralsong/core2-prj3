@@ -62,8 +62,9 @@ function AppShell({ pins, onCreatePin }) {
   return (
     <>
       <Header />
-
         <div className="main">
+
+      <div className="main-left">
         <div id="filter">
         <button className="filter-btn active" onClick={() => filterSelection('all')}>Show all</button>
         <button className="filter-btn" onClick={() => filterSelection('brown')}>Brown Eggs</button>
@@ -71,6 +72,17 @@ function AppShell({ pins, onCreatePin }) {
         <button className="filter-btn" onClick={() => filterSelection('quail')}>Quail Eggs </button>
         <button className="filter-btn" onClick={() => filterSelection('ostrich')}>Ostrich Eggs</button>
         <button className="filter-btn" onClick={() => filterSelection('plant-based')}>Plant-Based Eggs</button>
+      </div>
+
+      {selectedPin && (
+        <div className="storeName">
+          <p><strong>{selectedPin.storeName}</strong></p>
+          <p>Price: ${selectedPin.price.toFixed(2)}</p>
+          <p>Type: {selectedPin.eggType}</p>
+          <p>Latitude: {selectedPin.latitude.toFixed(4)}</p>
+          <p>Longitude: {selectedPin.longitude.toFixed(4)}</p>
+        </div>
+      )}
       </div>
 
       <div className="map">
@@ -84,7 +96,7 @@ function AppShell({ pins, onCreatePin }) {
         </div>
       </div>
 
-      <div className="storeName"></div>
+
       </div>
 
       <SubmissionForm

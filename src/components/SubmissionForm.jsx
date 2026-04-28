@@ -21,13 +21,7 @@ export default function SubmissionForm({
           {selectedPin ? (
             <>
               <h3>Store details</h3>
-              <div className="store-details">
-                <p><strong>{selectedPin.storeName}</strong></p>
-                <p>Price: ${selectedPin.price.toFixed(2)}</p>
-                <p>Type: {selectedPin.eggType}</p>
-                <p>Latitude: {selectedPin.latitude.toFixed(4)}</p>
-                <p>Longitude: {selectedPin.longitude.toFixed(4)}</p>
-              </div>
+              
               <button
                 id="cancelButton"
                 type="button"

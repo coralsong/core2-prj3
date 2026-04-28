@@ -13,6 +13,17 @@ body {
   font-family: sans-serif;
 }
 
+/* EGGxpert title */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  position: relative;
+  background-color: white;
+  margin: 20px;
+  margin-left: 40px;
+}
+
 /* parent container of filter and map */
 .main {
   display: flex;
@@ -24,11 +35,13 @@ body {
   display: flex;
   gap: 16px;
   flex-direction: column; 
+  height: 80vh;
+margin-left: 20px;
 }
 
 /* filter inside .main */
 #filter {
-  width: 320px;
+  width: 310px;
   margin-left: 20px;
   left: 40px;
 }
@@ -43,9 +56,39 @@ body {
 
 .storeName {
 display: flex;
-width: 320px;
+flex-direction: column;
+width: 310px;
+height: 600px;
 margin-left: 20px;
 left: 40px;
+border: 2px solid black;
+border-radius: 7px;
+}
+
+  #storeName-1 {
+    display: flex;
+    width: 320px;
+    height:30px;
+    margin: 5px;
+  }
+
+    #storeName-1 p {
+    width: 320px;
+    height: auto;
+    margin: 5px;
+    }
+
+#storeInfo {
+  display: flex;
+  width: 320px;
+  margin: 5px;
+flex-direction: column;
+}
+
+#storeInfo p {
+margin: 5px;
+
+
 }
 
 /* div #map container */
@@ -54,15 +97,15 @@ left: 40px;
   position: absolute;
   justify-content: center;
   align-items: flex-start;
-  height: calc(100vh - 80px);
+  height: auto;
   margin: 0;
-  right: 0px;
+  right: 10px;
 }
 
     /* map inside .map */
     #map {
       width: 70vw;
-      height: 75vh;
+      height: 80vh;
       position: relative;
       border: 2px solid black;
       border-radius: 10px;
@@ -108,28 +151,6 @@ left: 40px;
   background-color: #111;
 }
 
-
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  position: relative;
-  background-color: white;
-  margin: 20px;
-  margin-left: 50px;
-}
-
-nav {
-  background-color: white;
-  padding: 5px;
-  margin-right: 350px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 50%;
-}
 
 a {
   color: black;
@@ -254,7 +275,7 @@ transform: scale(1);
   align-items: center;
 }
 
-#submitButton {
+/* #submitButton {
   background-color: black;
   color: white;
 }
@@ -262,4 +283,4 @@ transform: scale(1);
 #cancelButton {
   background-color: #f0f0f0;
   color: black;
-}
+} */

@@ -76,11 +76,12 @@ function AppShell({ pins, onCreatePin }) {
 
       {selectedPin && (
         <div className="storeName">
-          <p><strong>{selectedPin.storeName}</strong></p>
-          <p>Price: ${selectedPin.price.toFixed(2)}</p>
-          <p>Type: {selectedPin.eggType}</p>
-          <p>Latitude: {selectedPin.latitude.toFixed(4)}</p>
-          <p>Longitude: {selectedPin.longitude.toFixed(4)}</p>
+          <div id="storeName-1"><p><strong>{selectedPin.storeName}</strong></p></div>
+            <div id="storeInfo">
+            <p>Number: #{selectedPin.number}</p>
+            <p>Price: ${selectedPin.price.toFixed(2)}</p>
+            <p>Type: {selectedPin.eggType}</p>
+            </div>
         </div>
       )}
       </div>

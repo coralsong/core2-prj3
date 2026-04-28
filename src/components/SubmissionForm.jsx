@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export default function SubmissionForm({
   clickedLatLng,
   form,
@@ -5,43 +7,45 @@ export default function SubmissionForm({
   onChange,
   onSubmit,
 }) {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <div className={`submissionForm${clickedLatLng ? " active" : ""}`} id="submissionForm">
-      <h3>Add</h3>
-      <input
-        id="storeName"
-        type="text"
-        placeholder="Store name (e.g. Trader Joes)"
-        value={form.storeName}
-        onChange={(event) =>
+      <div className={`egg${expanded ? " expanded" : ""}`}
+        onClick={() => setExpanded(true)}>
+
+      <div className="egg-content">
+        <h3>Add a pin</h3>
+        <input
+        id="storeName" type="text" placeholder="Store name (e.g. Trader Joes)" value={form.storeName} onChange={(event) =>
           onChange((current) => ({ ...current, storeName: event.target.value }))
-        }
-      />
+        }/></div>
+        
       <input
         id="eggPrice"
         type="number"
         placeholder="Price ($)"
         step="0.01"
         value={form.price}
-        onChange={(event) => onChange((current) => ({ ...current, price: event.target.value }))}
-      />
-      <button id="submitButton" type="button" onClick={onSubmit}>
-        Add Pin
-      </button>
-      <button id="cancelButton" type="button" onClick={onCancel}>
-        Cancel
-      </button>
-      <select
+        onChange={(event) => onChange((current) => ({ ...current, price: event.target.value }))
+        }/>
+
+       <select
         id="eggType"
         value={form.eggType}
-        onChange={(event) => onChange((current) => ({ ...current, eggType: event.target.value }))}
-      >
+        onChange={(event) => onChange((current) => ({ ...current, eggType: event.target.value }))}>
+
         <option value="brown">Brown Eggs</option>
         <option value="white">White Eggs</option>
         <option value="quail">Quail Eggs</option>
         <option value="ostrich">Ostrich Eggs</option>
         <option value="vegetarian">Vegetarian Eggs</option>
-      </select>
+        </select>
+
+      <button id="submitButton" type="button" onClick={onSubmit}>Add Pin</button>
+      <button id="cancelButton" type="button" onClick={() => {setExpanded(false); onCancel();}}>Cancel</button>
+
+      </div>
     </div>
   );
 }

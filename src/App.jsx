@@ -106,7 +106,6 @@ function AppShell({ pins, onCreatePin }) {
         onCancel={handleCancel}
         onChange={setForm}
         onSubmit={handleSubmit}
-        selectedPin={selectedPin}
       />
     </>
   );

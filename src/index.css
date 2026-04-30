@@ -130,7 +130,7 @@ margin: 5px;
 .leaflet-map .leaflet-control-zoom-in,
 .leaflet-map .leaflet-control-zoom-out,
 .leaflet-map .leaflet-control-attribution {
-  filter: invert(100%) hue-rotate(190deg) brightness(95%) contrast(90%);
+  /* filter: invert(100%) hue-rotate(190deg) brightness(95%) contrast(90%); */
 }
 
 .leaflet-map .leaflet-marker-pane,
@@ -262,4 +262,8 @@ margin: 5px;
 #cancelButton {
   background-color: #f0f0f0;
   color: black;
+}
+
+.egg-marker {
+  filter: drop-shadow(0 7px 5px rgba(0, 0, 0, 0.65));
 }

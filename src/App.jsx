@@ -196,91 +196,96 @@ function AppShell({ pins, onCreatePin }) {
   return (
     <>
       <Header />
-        <div className="main">
+      <div className="main">
+        <div className="main-left">
+          <div id="filter">
+            <button className="filter-btn active" type="button">Show all</button>
+            <button className="filter-btn" type="button">Brown Eggs</button>
+            <button className="filter-btn" type="button">White Eggs</button>
+            <button className="filter-btn" type="button">Quail Eggs</button>
+            <button className="filter-btn" type="button">Ostrich Eggs</button>
+            <button className="filter-btn" type="button">Plant-Based Eggs</button>
+          </div>
 
-      <div className="main-left">
-        <div id="filter">
-       <button className="filter-btn active" type="button">Show all</button>
-       <button className="filter-btn" type="button">Brown Eggs</button>
-       <button className="filter-btn" type="button">White Eggs</button>
-       <button className="filter-btn" type="button">Quail Eggs</button>
-       <button className="filter-btn" type="button">Ostrich Eggs</button>
-       <button className="filter-btn" type="button">Plant-Based Eggs</button>
-      </div>
-
-      <div className="storeName">
-        <div id="storeName-1">
-          <p><strong>Stores</strong></p>
-        </div>
-
-        {storeGroups.length > 0 ? (
-          <>
-            <div className="store-list">
-              {storeGroups.map((group) => (
-                <button
-                  key={group.storeName}
-                  type="button"
-                  className={`store-list-item${
-                    selectedStore?.storeName === group.storeName ? " active" : ""
-                  }`}
-                  onClick={() => setSelectedStoreName(group.storeName)}
-                >
-                  {group.storeName}
-                </button>
-              ))}
+          <div className="storeName">
+            <div id="storeName-1">
+              <p><strong>Stores</strong></p>
             </div>
 
-            {selectedStore && (
+            {storeGroups.length > 0 ? (
+              <div className="store-list">
+                {storeGroups.map((group) => (
+                  <button
+                    key={group.storeName}
+                    type="button"
+                    className={`store-list-item${
+                      selectedStore?.storeName === group.storeName ? " active" : ""
+                    }`}
+                    onClick={() => setSelectedStoreName(group.storeName)}
+                  >
+                    {group.storeName}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+
+            {storeGroups.length > 0 ? (
+              selectedStore ? (
+                <div id="storeInfo">
+                  <p className="store-info-title">
+                    <strong>{selectedStore.storeName}</strong>
+                  </p>
+
+                  {selectedStore.pins.some(
+                    (pin) => typeof pin.price === "number" && pin.eggType
+                  ) ? (
+                    selectedStore.pins
+                      .filter(
+                        (pin) => typeof pin.price === "number" && pin.eggType
+                      )
+                      .map((pin) => (
+                        <div key={pin._id} className="store-egg-row">
+                          <p>{pin.eggType}</p>
+                          <p>${pin.price.toFixed(2)}</p>
+                        </div>
+                      ))
+                  ) : (
+                    <p>No egg prices added for this store yet.</p>
+                  )}
+                </div>
+              ) : (
+                <div id="storeInfo">
+                  <p>Select a store to see details.</p>
+                </div>
+              )
+            ) : (
               <div id="storeInfo">
-                <p className="store-info-title">
-                  <strong>{selectedStore.storeName}</strong>
-                </p>
-                {selectedStore.pins.some((pin) => typeof pin.price === "number" && pin.eggType) ? (
-                  selectedStore.pins
-                    .filter((pin) => typeof pin.price === "number" && pin.eggType)
-                    .map((pin) => (
-                      <div key={pin._id} className="store-egg-row">
-                        <p>{pin.eggType}</p>
-                        <p>${pin.price.toFixed(2)}</p>
-                      </div>
-                    ))
-                ) : (
-                  <p>No egg prices added for this store yet.</p>
-                )}
+                <p>No stores added yet.</p>
               </div>
             )}
-          </>
-        ) : (
-          <div id="storeInfo">
-            <p>No stores added yet.</p>
           </div>
-        )}
-      </div>
-      </div>
+        </div>
 
-      <div className="map">
-        <div id="map">
-          <EggMap
-            pins={pins}
-            onMapClick={handleMapClick}
-            clickedPosition={clickedLatLng}
-            onPinSelect={handlePinSelect}
-            form={form}
-            onFormChange={setForm}
-            onCreateStore={handleSubmit}
-            onAddEggInfo={handleAddEggInfo}
-            onDismissTempMarker={handleTempMarkerDismiss}
-          />
+        <div className="map">
+          <div id="map">
+            <EggMap
+              pins={pins}
+              onMapClick={handleMapClick}
+              clickedPosition={clickedLatLng}
+              onPinSelect={handlePinSelect}
+              form={form}
+              onFormChange={setForm}
+              onCreateStore={handleSubmit}
+              onAddEggInfo={handleAddEggInfo}
+              onDismissTempMarker={handleTempMarkerDismiss}
+            />
+          </div>
         </div>
       </div>
-
-
-      </div>
-
-      
     </>
   );
 }
+
 
 function ConvexApp() {
   const pins = useQuery(api.eggPrices.list, {}) ?? [];

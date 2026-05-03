@@ -66,7 +66,8 @@ margin-left: 20px;
   display: flex;
   flex-direction: column;
   width: 310px;
-  min-height: 600px;
+ max-height: 600px;
+ height: 1fr;
   margin-left: 20px;
   border: 2px solid black;
   border-radius: 7px;
@@ -74,27 +75,16 @@ margin-left: 20px;
   box-sizing: border-box;
 }
 
-#storeName-1 {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  width: 100%;
-  min-height: 30px;
-  height: 40%;
-  margin: 0;
-  padding: 0 12px;
-  box-sizing: border-box;
-}
-
-#storeName-1 p {
+#stores-title {
   width: 100%;
   height: auto;
-  margin: 5px 0 10px;
+  margin: 5px;
 }
 
 .store-list {
   display: flex;
   flex-direction: column;
+  height: 40%;
   gap: 6px;
   padding: 0 12px 12px;
   border-bottom: 1px solid black;
@@ -109,6 +99,8 @@ margin-left: 20px;
   padding: 8px 10px;
   text-align: left;
   cursor: pointer;
+  display: flex;
+  position: relative;
 }
 
 .store-list-item.active {
@@ -119,7 +111,7 @@ margin-left: 20px;
 #storeInfo {
   display: flex;
   width: 100%;
-  height: 55%;
+  max-height: 55%;
   margin: 0;
   padding: 12px;
   box-sizing: border-box;

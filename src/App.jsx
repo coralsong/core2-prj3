@@ -208,12 +208,9 @@ function AppShell({ pins, onCreatePin }) {
           </div>
 
           <div className="storeName">
-            <div id="storeName-1">
-              <p><strong>Stores</strong></p>
-            </div>
-
             {storeGroups.length > 0 ? (
               <div className="store-list">
+                 <p id="stores-title"><strong>Stores</strong></p>
                 {storeGroups.map((group) => (
                   <button
                     key={group.storeName}

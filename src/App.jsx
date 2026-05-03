@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "./convexApi";
 import Header from "./components/Header";
@@ -17,11 +17,28 @@ function AppShell({ pins, onCreatePin }) {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [clickedLatLng, setClickedLatLng] = useState(null);
   const [selectedStoreName, setSelectedStoreName] = useState("");
+  const [pendingPins, setPendingPins] = useState([]);
+
+  const effectivePins = [...pins];
+  for (const pendingPin of pendingPins) {
+    const alreadyLoaded = pins.some(
+      (pin) =>
+        pin.storeName.trim().toLowerCase() === pendingPin.storeName.trim().toLowerCase() &&
+        Math.abs(pin.latitude - pendingPin.latitude) < LOCATION_TOLERANCE &&
+        Math.abs(pin.longitude - pendingPin.longitude) < LOCATION_TOLERANCE &&
+        pin.eggType === pendingPin.eggType &&
+        pin.price === pendingPin.price,
+    );
+
+    if (!alreadyLoaded) {
+      effectivePins.push(pendingPin);
+    }
+  }
 
   const storeGroups = [];
   const storeGroupMap = new Map();
 
-  for (const pin of pins) {
+  for (const pin of effectivePins) {
     const key = pin.storeName.trim();
     if (!storeGroupMap.has(key)) {
       const group = {
@@ -41,6 +58,22 @@ function AppShell({ pins, onCreatePin }) {
     storeGroupMap.get(selectedStoreName) ??
     storeGroups[0] ??
     null;
+
+  useEffect(() => {
+    setPendingPins((current) =>
+      current.filter(
+        (pendingPin) =>
+          !pins.some(
+            (pin) =>
+              pin.storeName.trim().toLowerCase() === pendingPin.storeName.trim().toLowerCase() &&
+              Math.abs(pin.latitude - pendingPin.latitude) < LOCATION_TOLERANCE &&
+              Math.abs(pin.longitude - pendingPin.longitude) < LOCATION_TOLERANCE &&
+              pin.eggType === pendingPin.eggType &&
+              pin.price === pendingPin.price,
+          ),
+      ),
+    );
+  }, [pins]);
 
   async function handleSubmit() {
     const storeName = form.storeName.trim();
@@ -69,6 +102,16 @@ function AppShell({ pins, onCreatePin }) {
       longitude: clickedLatLng.lng,
     });
 
+    setPendingPins((current) => [
+      ...current,
+      {
+        _id: `pending-store-${Date.now()}`,
+        storeName,
+        latitude: clickedLatLng.lat,
+        longitude: clickedLatLng.lng,
+      },
+    ]);
+
     setSelectedStoreName(storeName);
     setForm(DEFAULT_FORM);
     setClickedLatLng(null);
@@ -90,6 +133,18 @@ function AppShell({ pins, onCreatePin }) {
       price: Number(eggPrice),
       storeName,
     });
+
+    setPendingPins((current) => [
+      ...current,
+      {
+        _id: `pending-egg-${Date.now()}`,
+        storeName,
+        latitude: store.latitude,
+        longitude: store.longitude,
+        eggType: form.eggType,
+        price: Number(eggPrice),
+      },
+    ]);
 
     setSelectedStoreName(storeName);
     setForm((current) => ({

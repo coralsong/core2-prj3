@@ -93,7 +93,7 @@ function StoreMarker({ store, form, onFormChange, onAddEggInfo, onPinSelect }) {
       <Popup>
         <div className="mini-pin-form">
           <p>{store.storeName}</p>
-          {hasEntries ? (
+          {/* {hasEntries ? (
             <div className="mini-pin-list">
               {store.pins
                 .filter((pin) => typeof pin.price === "number" && pin.eggType)
@@ -106,7 +106,7 @@ function StoreMarker({ store, form, onFormChange, onAddEggInfo, onPinSelect }) {
             </div>
           ) : (
             <div className="mini-pin-empty">No egg prices yet.</div>
-          )}
+          )} */}
 
           <select
             value={form.eggType}
@@ -124,7 +124,7 @@ function StoreMarker({ store, form, onFormChange, onAddEggInfo, onPinSelect }) {
           <input
             type="number"
             placeholder="Price ($)"
-            step="0.01"
+            step="0.1"
             value={form.storeName === store.storeName ? form.price : ""}
             onChange={(event) =>
               onFormChange((current) => ({

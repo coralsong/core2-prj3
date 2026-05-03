@@ -66,13 +66,12 @@ margin-left: 20px;
   display: flex;
   flex-direction: column;
   width: 310px;
- max-height: 600px;
- height: 1fr;
+  height: 600px;
   margin-left: 20px;
   border: 2px solid black;
   border-radius: 7px;
-  padding: 8px 0 12px;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 #stores-title {
@@ -84,10 +83,10 @@ margin-left: 20px;
 .store-list {
   display: flex;
   flex-direction: column;
-  height: 40%;
   gap: 6px;
   padding: 0 12px 12px;
   border-bottom: 1px solid black;
+  overflow-y: auto;
 }
 
 .store-list-item {
@@ -110,15 +109,14 @@ margin-left: 20px;
 
 #storeInfo {
   display: flex;
-  width: 100%;
-  max-height: 55%;
-  margin: 0;
-  padding: 12px;
-  box-sizing: border-box;
   flex-direction: column;
   gap: 8px;
-  position: relative;
-
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
 }
 
 #storeInfo p {
@@ -131,12 +129,10 @@ margin-left: 20px;
 
 .store-egg-row {
   display: flex;
-  position: relative;
   justify-content: space-between;
   gap: 12px;
   padding: 8px 0;
   border-bottom: 1px solid #d9d9d9;
-  text-transform: capitalize;
 }
 
 .store-egg-row:last-child {

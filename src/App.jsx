@@ -11,6 +11,8 @@ const DEFAULT_FORM = {
   storeName: "",
 };
 
+const LOCATION_TOLERANCE = 0.00002;
+
 function AppShell({ pins, onCreatePin }) {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [clickedLatLng, setClickedLatLng] = useState(null);
@@ -24,6 +26,8 @@ function AppShell({ pins, onCreatePin }) {
     if (!storeGroupMap.has(key)) {
       const group = {
         storeName: key,
+        latitude: pin.latitude,
+        longitude: pin.longitude,
         pins: [],
       };
       storeGroupMap.set(key, group);
@@ -71,7 +75,7 @@ function AppShell({ pins, onCreatePin }) {
   }
 
   async function handleAddEggInfo(store) {
-    const storeName = form.storeName.trim();
+    const storeName = store.storeName;
     const eggPrice = form.price.trim();
 
     if (!eggPrice) {
@@ -102,15 +106,25 @@ function AppShell({ pins, onCreatePin }) {
   }
 
   function handleMapClick(latlng) {
+    const existingStore = storeGroups.find(
+      (group) =>
+        Math.abs(group.latitude - latlng.lat) < LOCATION_TOLERANCE &&
+        Math.abs(group.longitude - latlng.lng) < LOCATION_TOLERANCE,
+    );
+
+    if (existingStore) {
+      handlePinSelect(existingStore);
+      return;
+    }
+
     setClickedLatLng(latlng);
+    setSelectedStoreName("");
+    setForm(DEFAULT_FORM);
   }
 
   function handleTempMarkerDismiss() {
     setClickedLatLng(null);
-    setForm((current) => ({
-      ...current,
-      storeName: "",
-    }));
+    setForm(DEFAULT_FORM);
   }
 
   function handlePinSelect(pin) {

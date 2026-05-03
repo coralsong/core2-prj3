@@ -29,14 +29,37 @@ const customIcon = L.icon({
 
 function TempMarker({ position, form, onChange, onSubmit, onDismiss }) {
   const markerRef = useRef(null);
+  const isSavingRef = useRef(false);
 
   useEffect(() => {
     markerRef.current?.openPopup();
+    isSavingRef.current = false;
   }, [position]);
 
+  function handlePopupClose() {
+    if (isSavingRef.current) {
+      isSavingRef.current = false;
+      return;
+    }
+
+    onDismiss();
+  }
+
+  async function handleSaveStore() {
+    isSavingRef.current = true;
+    await onSubmit();
+  }
+
   return (
-    <Marker position={position} icon={customIcon} ref={markerRef}>
-      <Popup eventHandlers={{ remove: onDismiss }}>
+    <Marker
+      position={position}
+      icon={customIcon}
+      ref={markerRef}
+      eventHandlers={{
+        popupclose: handlePopupClose,
+      }}
+    >
+      <Popup>
         <div className="mini-pin-form">
           <p>Add a store</p>
 
@@ -49,7 +72,7 @@ function TempMarker({ position, form, onChange, onSubmit, onDismiss }) {
             }
           />
 
-          <button type="button" onClick={onSubmit}>Save Store</button>
+          <button type="button" onClick={handleSaveStore}>Save Store</button>
         </div>
       </Popup>
     </Marker>
@@ -121,7 +144,6 @@ function StoreMarker({ store, form, onFormChange, onAddEggInfo, onPinSelect }) {
   );
 }
 
-
 export default function EggMap({
   pins,
   onMapClick,
@@ -168,16 +190,15 @@ export default function EggMap({
       />
       <MapClickCapture onMapClick={onMapClick} />
 
-     
-     {clickedPosition && (
-  <TempMarker
-    position={[clickedPosition.lat, clickedPosition.lng]}
-    form={form}
-    onChange={onFormChange}
-    onSubmit={onCreateStore}
-    onDismiss={onDismissTempMarker}
-  />
-)}
+      {clickedPosition && (
+        <TempMarker
+          position={[clickedPosition.lat, clickedPosition.lng]}
+          form={form}
+          onChange={onFormChange}
+          onSubmit={onCreateStore}
+          onDismiss={onDismissTempMarker}
+        />
+      )}
 
       {stores.map((store) => (
         <StoreMarker

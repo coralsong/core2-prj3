@@ -12,8 +12,8 @@ const eggType = v.union(
 export default defineSchema({
   eggPrices: defineTable({
     storeName: v.string(),
-    eggType,
-    price: v.number(),
+    eggType: v.optional(eggType),
+    price: v.optional(v.number()),
     latitude: v.number(),
     longitude: v.number(),
   }).index("by_eggType", ["eggType"]),

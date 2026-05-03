@@ -30,6 +30,21 @@ export const list = query({
   },
 });
 
+export const createStore = mutation({
+  args: {
+    storeName: v.string(),
+    latitude: v.number(),
+    longitude: v.number(),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.insert("eggPrices", {
+      storeName: args.storeName.trim(),
+      latitude: args.latitude,
+      longitude: args.longitude,
+    });
+  },
+});
+
 export const create = mutation({
   args: {
     storeName: v.string(),

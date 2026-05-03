@@ -62,40 +62,86 @@ margin-left: 20px;
     }
 
 .storeName {
-display: flex;
-flex-direction: column;
-width: 310px;
-height: 600px;
-margin-left: 20px;
-left: 40px;
-border: 2px solid black;
-border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  width: 310px;
+  min-height: 600px;
+  margin-left: 20px;
+  left: 40px;
+  border: 2px solid black;
+  border-radius: 7px;
+  padding: 8px 0 12px;
+  box-sizing: border-box;
 }
 
-  #storeName-1 {
-    display: flex;
-    width: 320px;
-    height:30px;
-    margin: 5px;
-  }
+#storeName-1 {
+  display: flex;
+  width: 100%;
+  min-height: 30px;
+  margin: 0;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
 
-    #storeName-1 p {
-    width: 320px;
-    height: auto;
-    margin: 5px;
-    }
+#storeName-1 p {
+  width: 100%;
+  height: auto;
+  margin: 5px 0 10px;
+}
+
+.store-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 12px 12px;
+  border-bottom: 1px solid black;
+}
+
+.store-list-item {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 6px;
+  background-color: white;
+  color: black;
+  padding: 8px 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.store-list-item.active {
+  background-color: black;
+  color: white;
+}
 
 #storeInfo {
   display: flex;
-  width: 320px;
-  margin: 5px;
-flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 12px;
+  box-sizing: border-box;
+  flex-direction: column;
+  gap: 8px;
 }
 
 #storeInfo p {
-margin: 5px;
+  margin: 0;
+}
 
+.store-info-title {
+  margin-bottom: 6px;
+}
 
+.store-egg-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #d9d9d9;
+  text-transform: capitalize;
+}
+
+.store-egg-row:last-child {
+  border-bottom: none;
 }
 
 /* div #map container */
@@ -143,6 +189,71 @@ margin: 5px;
   font-family: Arial, sans-serif;
   font-size: 14px;
 }
+
+.mini-pin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 220px;
+}
+
+.mini-pin-form p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.mini-pin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mini-pin-list-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #d9d9d9;
+  text-transform: capitalize;
+}
+
+.mini-pin-empty {
+  font-size: 13px;
+  color: #555;
+}
+
+.mini-pin-form input,
+.mini-pin-form select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid black;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 14px;
+}
+
+.mini-pin-form button {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.mini-pin-form button:first-of-type {
+  background-color: black;
+  color: white;
+}
+
+.mini-pin-form button:last-of-type {
+  background-color: #f0f0f0;
+  color: black;
+}
+
 
 .store-link {
   border: 0;

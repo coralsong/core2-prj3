@@ -3,7 +3,6 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "./convexApi";
 import Header from "./components/Header";
 import EggMap from "./components/EggMap";
-import SubmissionForm from "./components/SubmissionForm";
 import "./index.css";
 
 const DEFAULT_FORM = {
@@ -15,14 +14,43 @@ const DEFAULT_FORM = {
 function AppShell({ pins, onCreatePin }) {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [clickedLatLng, setClickedLatLng] = useState(null);
-  const [selectedPin, setSelectedPin] = useState(null);
+  const [selectedStoreName, setSelectedStoreName] = useState("");
+
+  const storeGroups = [];
+  const storeGroupMap = new Map();
+
+  for (const pin of pins) {
+    const key = pin.storeName.trim();
+    if (!storeGroupMap.has(key)) {
+      const group = {
+        storeName: key,
+        pins: [],
+      };
+      storeGroupMap.set(key, group);
+      storeGroups.push(group);
+    }
+
+    storeGroupMap.get(key).pins.push(pin);
+  }
+
+  const selectedStore =
+    storeGroupMap.get(selectedStoreName) ??
+    storeGroups[0] ??
+    null;
 
   async function handleSubmit() {
     const storeName = form.storeName.trim();
-    const eggPrice = form.price.trim();
+    const storeExists = storeGroups.some(
+      (group) => group.storeName.toLowerCase() === storeName.toLowerCase(),
+    );
 
-    if (!storeName || !eggPrice) {
-      window.alert("Please fill in both the store name and price.");
+    if (!storeName) {
+      window.alert("Please enter a store name.");
+      return;
+    }
+
+    if (storeExists) {
+      window.alert("That store already exists. Click its marker to add egg info.");
       return;
     }
 
@@ -32,31 +60,68 @@ function AppShell({ pins, onCreatePin }) {
     }
 
     await onCreatePin({
-      eggType: form.eggType,
+      storeName,
       latitude: clickedLatLng.lat,
       longitude: clickedLatLng.lng,
+    });
+
+    setSelectedStoreName(storeName);
+    setForm(DEFAULT_FORM);
+    setClickedLatLng(null);
+  }
+
+  async function handleAddEggInfo(store) {
+    const storeName = form.storeName.trim();
+    const eggPrice = form.price.trim();
+
+    if (!eggPrice) {
+      window.alert("Please fill in the egg price.");
+      return;
+    }
+
+    await onCreatePin({
+      eggType: form.eggType,
+      latitude: store.latitude,
+      longitude: store.longitude,
       price: Number(eggPrice),
       storeName,
     });
 
-    setForm(DEFAULT_FORM);
-    setClickedLatLng(null);
+    setSelectedStoreName(storeName);
+    setForm((current) => ({
+      ...current,
+      eggType: DEFAULT_FORM.eggType,
+      price: "",
+      storeName,
+    }));
   }
 
   function handleCancel() {
     setForm(DEFAULT_FORM);
     setClickedLatLng(null);
-    setSelectedPin(null);
   }
 
   function handleMapClick(latlng) {
     setClickedLatLng(latlng);
-    setSelectedPin(null);
+  }
+
+  function handleTempMarkerDismiss() {
+    setClickedLatLng(null);
+    setForm((current) => ({
+      ...current,
+      storeName: "",
+    }));
   }
 
   function handlePinSelect(pin) {
-    setSelectedPin(pin);
+    setSelectedStoreName(pin.storeName);
     setClickedLatLng(null);
+    setForm((current) => ({
+      ...current,
+      storeName: pin.storeName,
+      eggType: DEFAULT_FORM.eggType,
+      price: "",
+    }));
   }
 
   return (
@@ -66,24 +131,62 @@ function AppShell({ pins, onCreatePin }) {
 
       <div className="main-left">
         <div id="filter">
-        <button className="filter-btn active" onClick={() => filterSelection('all')}>Show all</button>
-        <button className="filter-btn" onClick={() => filterSelection('brown')}>Brown Eggs</button>
-        <button className="filter-btn" onClick={() => filterSelection('white')}>White Eggs</button>
-        <button className="filter-btn" onClick={() => filterSelection('quail')}>Quail Eggs </button>
-        <button className="filter-btn" onClick={() => filterSelection('ostrich')}>Ostrich Eggs</button>
-        <button className="filter-btn" onClick={() => filterSelection('plant-based')}>Plant-Based Eggs</button>
+       <button className="filter-btn active" type="button">Show all</button>
+       <button className="filter-btn" type="button">Brown Eggs</button>
+       <button className="filter-btn" type="button">White Eggs</button>
+       <button className="filter-btn" type="button">Quail Eggs</button>
+       <button className="filter-btn" type="button">Ostrich Eggs</button>
+       <button className="filter-btn" type="button">Plant-Based Eggs</button>
       </div>
 
-      {selectedPin && (
-        <div className="storeName">
-          <div id="storeName-1"><p><strong>{selectedPin.storeName}</strong></p></div>
-            <div id="storeInfo">
-            <p>Number: #{selectedPin.number}</p>
-            <p>Price: ${selectedPin.price.toFixed(2)}</p>
-            <p>Type: {selectedPin.eggType}</p>
-            </div>
+      <div className="storeName">
+        <div id="storeName-1">
+          <p><strong>Stores</strong></p>
         </div>
-      )}
+
+        {storeGroups.length > 0 ? (
+          <>
+            <div className="store-list">
+              {storeGroups.map((group) => (
+                <button
+                  key={group.storeName}
+                  type="button"
+                  className={`store-list-item${
+                    selectedStore?.storeName === group.storeName ? " active" : ""
+                  }`}
+                  onClick={() => setSelectedStoreName(group.storeName)}
+                >
+                  {group.storeName}
+                </button>
+              ))}
+            </div>
+
+            {selectedStore && (
+              <div id="storeInfo">
+                <p className="store-info-title">
+                  <strong>{selectedStore.storeName}</strong>
+                </p>
+                {selectedStore.pins.some((pin) => typeof pin.price === "number" && pin.eggType) ? (
+                  selectedStore.pins
+                    .filter((pin) => typeof pin.price === "number" && pin.eggType)
+                    .map((pin) => (
+                      <div key={pin._id} className="store-egg-row">
+                        <p>{pin.eggType}</p>
+                        <p>${pin.price.toFixed(2)}</p>
+                      </div>
+                    ))
+                ) : (
+                  <p>No egg prices added for this store yet.</p>
+                )}
+              </div>
+            )}
+          </>
+        ) : (
+          <div id="storeInfo">
+            <p>No stores added yet.</p>
+          </div>
+        )}
+      </div>
       </div>
 
       <div className="map">
@@ -93,6 +196,11 @@ function AppShell({ pins, onCreatePin }) {
             onMapClick={handleMapClick}
             clickedPosition={clickedLatLng}
             onPinSelect={handlePinSelect}
+            form={form}
+            onFormChange={setForm}
+            onCreateStore={handleSubmit}
+            onAddEggInfo={handleAddEggInfo}
+            onDismissTempMarker={handleTempMarkerDismiss}
           />
         </div>
       </div>
@@ -100,13 +208,7 @@ function AppShell({ pins, onCreatePin }) {
 
       </div>
 
-      <SubmissionForm
-        clickedLatLng={clickedLatLng}
-        form={form}
-        onCancel={handleCancel}
-        onChange={setForm}
-        onSubmit={handleSubmit}
-      />
+      
     </>
   );
 }
@@ -114,9 +216,15 @@ function AppShell({ pins, onCreatePin }) {
 function ConvexApp() {
   const pins = useQuery(api.eggPrices.list, {}) ?? [];
   const createPin = useMutation(api.eggPrices.create);
+  const createStore = useMutation(api.eggPrices.createStore);
 
   async function handleCreatePin(pin) {
-    await createPin(pin);
+    if ("eggType" in pin) {
+      await createPin(pin);
+      return;
+    }
+
+    await createStore(pin);
   }
 
   return <AppShell pins={pins} onCreatePin={handleCreatePin} />;

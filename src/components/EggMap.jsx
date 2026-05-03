@@ -45,10 +45,17 @@ function TempMarker({ position, form, onChange, onSubmit, onDismiss }) {
     onDismiss();
   }
 
-  async function handleSaveStore() {
+async function handleSaveStore() {
+  try {
     isSavingRef.current = true;
     await onSubmit();
+    console.log("Store saved");
+  } catch (error) {
+    console.error("Save Store failed:", error);
+    window.alert("Saving store failed. Check the console.");
+    isSavingRef.current = false;
   }
+}
 
   return (
     <Marker

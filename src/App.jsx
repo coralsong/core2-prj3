@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "./convexApi";
 import Header from "./components/Header";
 import EggMap from "./components/EggMap";
+import { EGG_TYPES } from "./constants";
 import "./index.css";
 
 const DEFAULT_FORM = {
@@ -18,6 +19,7 @@ function AppShell({ pins, onCreatePin }) {
   const [clickedLatLng, setClickedLatLng] = useState(null);
   const [selectedStoreName, setSelectedStoreName] = useState("");
   const [pendingPins, setPendingPins] = useState([]);
+  const [activeFilter, setActiveFilter] = useState("all");
 
   const effectivePins = [...pins];
   for (const pendingPin of pendingPins) {
@@ -58,6 +60,16 @@ function AppShell({ pins, onCreatePin }) {
     storeGroupMap.get(selectedStoreName) ??
     storeGroups[0] ??
     null;
+
+  const filteredSelectedStorePins = selectedStore
+    ? selectedStore.pins.filter((pin) => {
+        if (typeof pin.price !== "number" || !pin.eggType) {
+          return false;
+        }
+
+        return activeFilter === "all" || pin.eggType === activeFilter;
+      })
+    : [];
 
   useEffect(() => {
     setPendingPins((current) =>
@@ -199,12 +211,16 @@ function AppShell({ pins, onCreatePin }) {
       <div className="main">
         <div className="main-left">
           <div id="filter">
-            <button className="filter-btn active" type="button">Show all</button>
-            <button className="filter-btn" type="button">Brown Eggs</button>
-            <button className="filter-btn" type="button">White Eggs</button>
-            <button className="filter-btn" type="button">Quail Eggs</button>
-            <button className="filter-btn" type="button">Ostrich Eggs</button>
-            <button className="filter-btn" type="button">Plant-Based Eggs</button>
+            {EGG_TYPES.map((eggType) => (
+              <button
+                key={eggType.value}
+                className={`filter-btn${activeFilter === eggType.value ? " active" : ""}`}
+                type="button"
+                onClick={() => setActiveFilter(eggType.value)}
+              >
+                {eggType.label}
+              </button>
+            ))}
           </div>
 
           <div className="storeName">
@@ -233,21 +249,19 @@ function AppShell({ pins, onCreatePin }) {
                     <strong>{selectedStore.storeName}</strong>
                   </p>
 
-                  {selectedStore.pins.some(
-                    (pin) => typeof pin.price === "number" && pin.eggType
-                  ) ? (
-                    selectedStore.pins
-                      .filter(
-                        (pin) => typeof pin.price === "number" && pin.eggType
-                      )
-                      .map((pin) => (
-                        <div key={pin._id} className="store-egg-row">
-                          <p>{pin.eggType}</p>
-                          <p>${pin.price.toFixed(2)}</p>
-                        </div>
-                      ))
+                  {filteredSelectedStorePins.length > 0 ? (
+                    filteredSelectedStorePins.map((pin) => (
+                      <div key={pin._id} className="store-egg-row">
+                        <p>{pin.eggType}</p>
+                        <p>${pin.price.toFixed(2)}</p>
+                      </div>
+                    ))
                   ) : (
-                    <p>No egg prices added for this store yet.</p>
+                    <p>
+                      {activeFilter === "all"
+                        ? "No egg prices added for this store yet."
+                        : `No ${activeFilter} egg prices for this store yet.`}
+                    </p>
                   )}
                 </div>
               ) : (

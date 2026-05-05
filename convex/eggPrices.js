@@ -10,7 +10,7 @@ const eggType = v.union(
   v.literal("white"),
   v.literal("quail"),
   v.literal("ostrich"),
-  v.literal("vegetarian"),
+  v.literal("substitute"),
 );
 
 export const list = query({

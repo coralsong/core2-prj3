@@ -40,12 +40,12 @@ export default function SubmissionForm({
               onChange((current) => ({ ...current, eggType: event.target.value }))
             }
           >
-            <option value="brown">Brown Eggs</option>
-            <option value="white">White Eggs</option>
-            <option value="quail">Quail Eggs</option>
-            <option value="ostrich">Ostrich Eggs</option>
-            <option value="plant-based">Plant-Based Eggs</option>
-          </select>
+                <option value="brown">Brown Eggs</option>
+                <option value="white">White Eggs</option>
+                <option value="quail">Quail Eggs</option>
+                <option value="ostrich">Ostrich Eggs</option>
+                <option value="substitute">Substitute Eggs</option>
+              </select>
 
           <button id="submitButton" type="button" onClick={onSubmit}>Add Pin</button>
           <button id="cancelButton" type="button" onClick={onCancel}>Cancel</button>

@@ -125,7 +125,7 @@ function StoreMarker({ store, form, onFormChange, onAddEggInfo, onPinSelect }) {
             <option value="white">White Eggs</option>
             <option value="quail">Quail Eggs</option>
             <option value="ostrich">Ostrich Eggs</option>
-            <option value="substitute">Substitute Eggs</option>
+            <option value="vegetarian">Vegetarian Eggs</option>
           </select>
 
           <input

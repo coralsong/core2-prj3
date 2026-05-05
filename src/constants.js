@@ -11,7 +11,7 @@ export const EGG_TYPES = [
   { value: "white", label: "White Eggs", tone: "white" },
   { value: "quail", label: "Quail Eggs", tone: "quail" },
   { value: "ostrich", label: "Ostrich Eggs", tone: "ostrich" },
-  { value: "substitute", label: "Substitute Eggs", tone: "substitute" },
+  { value: "vegetarian", label: "Vegetarian Eggs", tone: "vegetarian" },
 ];
 
 export const DEMO_PINS = [

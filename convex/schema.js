@@ -6,7 +6,7 @@ const eggType = v.union(
   v.literal("white"),
   v.literal("quail"),
   v.literal("ostrich"),
-  v.literal("substitute"),
+  v.literal("vegetarian"),
 );
 
 export default defineSchema({

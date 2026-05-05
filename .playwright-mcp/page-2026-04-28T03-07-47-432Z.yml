@@ -8,7 +8,7 @@
       - generic [ref=e8]: White Eggs
       - generic [ref=e9]: Quail Eggs
       - generic [ref=e10]: Ostrich Eggs
-      - generic [ref=e11]: Vegetarian Eggs
+      - generic [ref=e11]: Substitute Eggs
   - generic [ref=e14]:
     - generic:
       - generic [ref=e15]:
@@ -33,4 +33,4 @@
       - option "White Eggs"
       - option "Quail Eggs"
       - option "Ostrich Eggs"
-      - option "Vegetarian Eggs"
+      - option "Substitute Eggs"

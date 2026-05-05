@@ -44,7 +44,7 @@ export default function SubmissionForm({
             <option value="white">White Eggs</option>
             <option value="quail">Quail Eggs</option>
             <option value="ostrich">Ostrich Eggs</option>
-            <option value="vegetarian">Vegetarian Eggs</option>
+            <option value="plant-based">Plant-Based Eggs</option>
           </select>
 
           <button id="submitButton" type="button" onClick={onSubmit}>Add Pin</button>

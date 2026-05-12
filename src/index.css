@@ -135,6 +135,7 @@ margin-left: 20px;
 .store-egg-row {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 12px;
   padding: 8px 0;
   border-bottom: 1px solid #d9d9d9;
@@ -142,6 +143,17 @@ margin-left: 20px;
 
 .store-egg-row:last-child {
   border-bottom: none;
+}
+
+.store-egg-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.store-egg-type {
+  text-transform: capitalize;
+  color: #555;
 }
 
 /* div #map container */

@@ -11,6 +11,7 @@ const eggType = v.union(
 
 export default defineSchema({
   eggPrices: defineTable({
+    brandName: v.optional(v.string()),
     storeName: v.string(),
     eggType: v.optional(eggType),
     price: v.optional(v.number()),

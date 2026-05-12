@@ -47,6 +47,7 @@ export const createStore = mutation({
 
 export const create = mutation({
   args: {
+    brandName: v.string(),
     storeName: v.string(),
     eggType,
     price: v.number(),
@@ -55,6 +56,7 @@ export const create = mutation({
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("eggPrices", {
+      brandName: args.brandName.trim(),
       storeName: args.storeName.trim(),
       eggType: args.eggType,
       price: Math.round(args.price * 100) / 100,

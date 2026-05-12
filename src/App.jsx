@@ -7,6 +7,7 @@ import { EGG_TYPES } from "./constants";
 import "./index.css";
 
 const DEFAULT_FORM = {
+  brandName: "",
   eggType: "brown",
   price: "",
   storeName: "",
@@ -28,6 +29,7 @@ function AppShell({ pins, onCreatePin }) {
         pin.storeName.trim().toLowerCase() === pendingPin.storeName.trim().toLowerCase() &&
         Math.abs(pin.latitude - pendingPin.latitude) < LOCATION_TOLERANCE &&
         Math.abs(pin.longitude - pendingPin.longitude) < LOCATION_TOLERANCE &&
+        pin.brandName === pendingPin.brandName &&
         pin.eggType === pendingPin.eggType &&
         pin.price === pendingPin.price,
     );
@@ -80,6 +82,7 @@ function AppShell({ pins, onCreatePin }) {
               pin.storeName.trim().toLowerCase() === pendingPin.storeName.trim().toLowerCase() &&
               Math.abs(pin.latitude - pendingPin.latitude) < LOCATION_TOLERANCE &&
               Math.abs(pin.longitude - pendingPin.longitude) < LOCATION_TOLERANCE &&
+              pin.brandName === pendingPin.brandName &&
               pin.eggType === pendingPin.eggType &&
               pin.price === pendingPin.price,
           ),
@@ -130,8 +133,14 @@ function AppShell({ pins, onCreatePin }) {
   }
 
   async function handleAddEggInfo(store) {
+    const brandName = form.brandName.trim();
     const storeName = store.storeName;
     const eggPrice = form.price.trim();
+
+    if (!brandName) {
+      window.alert("Please enter the egg brand.");
+      return;
+    }
 
     if (!eggPrice) {
       window.alert("Please fill in the egg price.");
@@ -139,6 +148,7 @@ function AppShell({ pins, onCreatePin }) {
     }
 
     await onCreatePin({
+      brandName,
       eggType: form.eggType,
       latitude: store.latitude,
       longitude: store.longitude,
@@ -153,6 +163,7 @@ function AppShell({ pins, onCreatePin }) {
         storeName,
         latitude: store.latitude,
         longitude: store.longitude,
+        brandName,
         eggType: form.eggType,
         price: Number(eggPrice),
       },
@@ -161,6 +172,7 @@ function AppShell({ pins, onCreatePin }) {
     setSelectedStoreName(storeName);
     setForm((current) => ({
       ...current,
+      brandName: "",
       eggType: DEFAULT_FORM.eggType,
       price: "",
       storeName,
@@ -199,6 +211,7 @@ function AppShell({ pins, onCreatePin }) {
     setClickedLatLng(null);
     setForm((current) => ({
       ...current,
+      brandName: "",
       storeName: pin.storeName,
       eggType: DEFAULT_FORM.eggType,
       price: "",
@@ -252,7 +265,10 @@ function AppShell({ pins, onCreatePin }) {
                   {filteredSelectedStorePins.length > 0 ? (
                     filteredSelectedStorePins.map((pin) => (
                       <div key={pin._id} className="store-egg-row">
-                        <p>{pin.eggType}</p>
+                        <div className="store-egg-copy">
+                          <p>{pin.brandName || "Unknown brand"}</p>
+                          <p className="store-egg-type">{pin.eggType}</p>
+                        </div>
                         <p>${pin.price.toFixed(2)}</p>
                       </div>
                     ))

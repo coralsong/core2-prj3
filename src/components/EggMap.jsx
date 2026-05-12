@@ -129,6 +129,19 @@ function StoreMarker({ store, form, onFormChange, onAddEggInfo, onPinSelect }) {
           </select>
 
           <input
+            type="text"
+            placeholder="Brand name"
+            value={form.storeName === store.storeName ? form.brandName : ""}
+            onChange={(event) =>
+              onFormChange((current) => ({
+                ...current,
+                storeName: store.storeName,
+                brandName: event.target.value,
+              }))
+            }
+          />
+
+          <input
             type="number"
             placeholder="Price ($)"
             step="0.1"
